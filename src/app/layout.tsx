@@ -5,11 +5,13 @@ import "./globals.css";
 const titilliumWeb = Titillium_Web({
     weight: ["200", "300", "400", "600", "900"],
     subsets: ["latin"],
+    variable: "--font-titillium-web",
 });
 
 const sourceSans = Source_Sans_3({
     weight: ["400", "600"],
     subsets: ["latin"],
+    variable: "--font-source-sans",
 });
 
 export const metadata: Metadata = {
@@ -27,9 +29,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body
-                className={`${titilliumWeb.className} ${sourceSans.className}`}
-            >
+            <body className={`${titilliumWeb.variable} ${sourceSans.variable}`}>
                 {children}
             </body>
         </html>
