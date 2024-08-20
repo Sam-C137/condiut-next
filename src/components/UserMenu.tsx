@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "@/app/(main)/SessionProvider";
+import { useSession } from "@/app/SessionProvider";
 import Link from "next/link";
 import Avatar from "./ui/avatar";
 import { cn } from "@/lib/utils";
@@ -40,7 +40,7 @@ export default function UserMenu() {
                     <Link
                         href={`/profile/${user.username}`}
                         className={cn(
-                            "font-source-sans text-muted-foreground transition-colors hover:text-card-foreground",
+                            "inline-flex items-center gap-2 font-source-sans text-muted-foreground transition-colors hover:text-card-foreground",
                             {
                                 "text-card-foreground":
                                     pathname === `/profile/${user.username}`,

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Source_Sans_3, Titillium_Web } from "next/font/google";
 import "./globals.css";
+import { validateRequest } from "@/auth";
+import SessionProvider from "@/app/SessionProvider";
 
 const titilliumWeb = Titillium_Web({
     weight: ["200", "300", "400", "600", "900"],
@@ -22,15 +24,17 @@ export const metadata: Metadata = {
     description: "The real world app",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const session = await validateRequest();
+
     return (
         <html lang="en">
             <body className={`${titilliumWeb.variable} ${sourceSans.variable}`}>
-                {children}
+                <SessionProvider value={session}>{children}</SessionProvider>
             </body>
         </html>
     );

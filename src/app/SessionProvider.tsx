@@ -3,10 +3,15 @@
 import { Session, User } from "lucia";
 import React from "react";
 
-export type SessionContext = {
-    user: User;
-    session: Session;
-};
+type SessionContext =
+    | {
+          user: User;
+          session: Session;
+      }
+    | {
+          user: null;
+          session: null;
+      };
 
 const SessionContext = React.createContext<SessionContext | undefined>(
     undefined,
