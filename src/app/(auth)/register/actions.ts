@@ -2,12 +2,12 @@
 
 import { registerSchema, RegisterUserDetails } from "@/lib/validators";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { hash } from "@node-rs/argon2";
 import { generateIdFromEntropySize } from "lucia";
 import prisma from "@/lib/prisma";
 import { lucia } from "@/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { hash } from "bcrypt";
 
 export async function register(
     credentials: RegisterUserDetails,
@@ -15,12 +15,7 @@ export async function register(
     try {
         const { username, password, email } = registerSchema.parse(credentials);
 
-        const passwordHash = await hash(password, {
-            memoryCost: 19456,
-            timeCost: 2,
-            outputLen: 32,
-            parallelism: 1,
-        });
+        const passwordHash = await hash(password, 10);
 
         const userId = generateIdFromEntropySize(10);
 

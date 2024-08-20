@@ -3,7 +3,7 @@
 import { Session, User } from "lucia";
 import React from "react";
 
-type SessionContext = {
+export type SessionContext = {
     user: User;
     session: Session;
 };
