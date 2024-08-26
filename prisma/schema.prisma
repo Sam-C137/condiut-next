@@ -21,6 +21,7 @@ model User {
   bio          String?
   image        String?
   sessions     Session[]
+  article      Article[]
 
   createdAt DateTime @default(now())
 
@@ -35,4 +36,36 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model Article {
+  id          String       @id @default(cuid())
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  body        String
+  tags        ArticleTag[]
+
+  createdAt DateTime @default(now())
+
+  @@map("articles")
+}
+
+model Tag {
+  id       Int          @id @default(autoincrement())
+  name     String       @unique
+  articles ArticleTag[]
+
+  @@map("tags")
+}
+
+model ArticleTag {
+  articleId String
+  article   Article @relation(fields: [articleId], references: [id])
+  tagId     Int
+  tag       Tag     @relation(fields: [tagId], references: [id])
+
+  @@id([tagId, articleId])
+  @@map("article_tags")
 }

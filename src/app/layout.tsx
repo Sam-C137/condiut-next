@@ -3,6 +3,7 @@ import { Source_Sans_3, Titillium_Web } from "next/font/google";
 import "./globals.css";
 import { validateRequest } from "@/auth";
 import SessionProvider from "@/app/SessionProvider";
+import Navbar from "@/components/Navbar";
 
 const titilliumWeb = Titillium_Web({
     weight: ["200", "300", "400", "600", "900"],
@@ -34,7 +35,12 @@ export default async function RootLayout({
     return (
         <html lang="en">
             <body className={`${titilliumWeb.variable} ${sourceSans.variable}`}>
-                <SessionProvider value={session}>{children}</SessionProvider>
+                <SessionProvider value={session}>
+                    <div className="flex min-h-screen flex-col">
+                        <Navbar />
+                        {children}
+                    </div>
+                </SessionProvider>
             </body>
         </html>
     );
